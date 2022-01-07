@@ -51,7 +51,7 @@ GP2YDustSensor::GP2YDustSensor(GP2YDustSensorType type,
     if (this->runningAverageCount) {
         this->runningAverageBuffer = new int16_t[this->runningAverageCount];
         // init with -1
-        for (uint16_t i = 0; i < this->runningAverageCount; i++) {
+        for (int i = 0; i < this->runningAverageCount; i++) {
             this->runningAverageBuffer[i] = -1;
         }
     }
@@ -153,7 +153,7 @@ uint16_t GP2YDustSensor::readDustRawOnce()
  * 
  * @return uint16_t dust density between 0 and 600 ug/m3
  */
-uint16_t GP2YDustSensor::getDustDensity(uint16_t numSamples)
+uint16_t GP2YDustSensor::getDustDensity(uint8_t numSamples)
 {
     uint32_t total = 0;
     uint16_t avgRaw;
@@ -225,7 +225,7 @@ uint16_t GP2YDustSensor::getRunningAverage()
   float runningAverage = 0;
   uint16_t sampleCount = 0;
 
-    for (uint16_t i = 0; i < this->runningAverageCount; i++) {
+    for (int i = 0; i < this->runningAverageCount; i++) {
         if (this->runningAverageBuffer[i] != -1) {
             runningAverage += this->runningAverageBuffer[i];
             sampleCount++;
