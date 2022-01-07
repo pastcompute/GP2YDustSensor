@@ -19,6 +19,7 @@ class GP2YDustSensor
         float maxZeroDustVoltage;
         float typZeroDustVoltage;
         float currentBaselineCandidate;
+        float lastScaledVoltage;
         bool hasBaselineCandidate;
         uint16_t readCount = 0;
         float calibrationFactor;
@@ -41,6 +42,7 @@ class GP2YDustSensor
         uint16_t getRunningAverage();
         float getBaseline();
         void setBaseline(float zeroDustVoltage);
+        float getLastScaledVoltage() { return lastScaledVoltage; }
         float getBaselineCandidate();
         void setSensitivity(float sensitivity);
         float getSensitivity();

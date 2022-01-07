@@ -22,6 +22,7 @@ GP2YDustSensor::GP2YDustSensor(GP2YDustSensorType type,
     this->nextRunningAverageCounter = 0;
     this->hasBaselineCandidate = false;
     this->readCount = 0;
+    this->lastScaledVoltage = 0;
     
     switch (type) {
         case GP2Y1010AU0F:
@@ -169,7 +170,7 @@ uint16_t GP2YDustSensor::getDustDensity(uint8_t numSamples)
     // we scale up the read ADC voltage to the sensor's 5V output range
     // so we can interpret the results based on voltage
     // we assume a 10 bit ADC resolution currently given by analogRead()
-    float scaledVoltage = avgRaw * (5.0 / 1024) * calibrationFactor;
+    float scaledVoltage = lastScaledVoltage = avgRaw * (5.0 / 1024.0) * calibrationFactor;
 
     // determine new baseline candidate
     if (scaledVoltage < this->minDustVoltage && scaledVoltage >= minZeroDustVoltage && scaledVoltage <= maxZeroDustVoltage) {
